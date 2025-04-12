@@ -1,11 +1,28 @@
-import type { FC } from 'react'
-import NavbarSidebarLayout from '../../layouts/navbar-sidebar'
+import DetalleLiquidacionTable from '@/components/liquidacion/DetalleLiquidacionTable'
+import { useDetalleLiquidacion } from '@/hooks/useDetalleLiquidacion'
+import NavbarSidebarLayout from '@/layouts/navbar-sidebar'
 import { Breadcrumb, Label, TextInput } from 'flowbite-react'
+import { FC, useState } from 'react'
 import { HiHome } from 'react-icons/hi'
-import LiquidacionesMensualesTable from '@/components/liquidacion/LiquidacionesMensualesTable'
-import { Link } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router'
 
-const ListLiquidacionPage: FC = () => {
+const DetalleLiquidacionPage: FC = () => {
+  const { periodo } = useParams<{ periodo: string }>()
+  const [search, setSearch] = useState('')
+
+  const { data, isLoading } = useDetalleLiquidacion({
+    periodo: periodo || ''
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setSearch(e.target.value.toLowerCase())
+  }
+
+  const filteredData = data?.filter((item) =>
+    item.socio?.nombre?.toLowerCase().includes(search)
+  )
+
   return (
     <NavbarSidebarLayout isFooter={false}>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex">
@@ -18,13 +35,14 @@ const ListLiquidacionPage: FC = () => {
                   <span className="dark:text-white">Home</span>
                 </div>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Link to="/socios/list">Socios</Link>
+              <Breadcrumb.Item href="/liquidacion/list">
+                Liquidaciones
               </Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
+              <Breadcrumb.Item href="/liquidacion/list">List</Breadcrumb.Item>
+              <Breadcrumb.Item>detalle</Breadcrumb.Item>
             </Breadcrumb>
             <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-              Todos los socios
+              Detalle de liquidacion periodo {periodo}
             </h1>
           </div>
           <div className="sm:flex">
@@ -35,10 +53,11 @@ const ListLiquidacionPage: FC = () => {
                 </Label>
                 <div className="relative mt-1 lg:w-64 xl:w-96">
                   <TextInput
-                    id="users-search"
-                    name="users-search"
-                    placeholder="Search for users"
+                    id="socio-search"
+                    name="socio-search"
+                    placeholder="Buscar por socio"
                     type="text"
+                    onInput={handleChange}
                   />
                 </div>
               </form>
@@ -46,9 +65,12 @@ const ListLiquidacionPage: FC = () => {
           </div>
         </div>
       </div>
-      <LiquidacionesMensualesTable />
+      <DetalleLiquidacionTable
+        detallLiquidacion={filteredData}
+        isLoading={isLoading}
+      />
     </NavbarSidebarLayout>
   )
 }
 
-export default ListLiquidacionPage
+export default DetalleLiquidacionPage

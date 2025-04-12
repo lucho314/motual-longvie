@@ -17,6 +17,7 @@ import queryClient from './lib/queryClient'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import Login from './pages/authentication/Login'
+import DetalleLiquidacionPage from './pages/liquidacion/DetalleLiquidacionPage'
 
 const container = document.getElementById('root')
 
@@ -42,6 +43,10 @@ root.render(
             <Route path="/liquidacion/upload" element={<UploadPage />} />
             <Route path="/liquidacion/list" element={<ListLiquidacionPage />} />
             <Route path="/login" element={<Login />} />
+            <Route
+              path="/liquidacion/detalle/:periodo"
+              element={<DetalleLiquidacionPage />}
+            />
           </Routes>
         </BrowserRouter>
       </Flowbite>

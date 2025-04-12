@@ -4,10 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Socio;
+use App\Services\SocioService;
 use Illuminate\Http\Request;
 
 class SocioController extends Controller
 {
+    protected $socioService;
+    public function __construct(SocioService $socioService)
+    {
+        $this->socioService = $socioService;
+    }
+
+
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10); // valor por defecto: 10
@@ -26,13 +34,8 @@ class SocioController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'legajo' => 'required|unique:socios',
-            'nombre' => 'required',
-            'correo' => 'required|email|unique:socios',
-        ]);
 
-        $socio = Socio::create($validated);
+        $socio = $this->socioService->crearOActualizar($request);
         return response()->json($socio, 201);
     }
 

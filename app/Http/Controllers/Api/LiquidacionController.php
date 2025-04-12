@@ -30,9 +30,16 @@ class LiquidacionController extends Controller
         $this->retencionService = $retencionService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $perPage = $request->input('per_page', 10);
+
+        $periodos = RetencionMensual::with('user')
+            ->select('periodo', 'user_id', 'created_at', "id")
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
+
+        return response()->json($periodos);
     }
 
     /**

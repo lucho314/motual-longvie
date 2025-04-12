@@ -45,7 +45,7 @@ const SociosTable: FC<Props> = ({ socios, isLoading }) => {
         <Table.Body className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
           {socios.map((socio) => (
             <Table.Row
-              key={socio.id}
+              key={socio.legajo}
               className="hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <Table.Cell className="w-4 p-4">

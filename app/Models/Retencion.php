@@ -38,6 +38,6 @@ class Retencion extends Model
 
     public function socio()
     {
-        return $this->belongsTo(Socio::class, 'legajo', 'legajo');
+        return $this->belongsTo(Socio::class, 'legajo', 'legajo')->withTrashed();
     }
 }
