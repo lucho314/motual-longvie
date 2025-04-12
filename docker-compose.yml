@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+    mariadb:
+        image: mariadb:10.5
+        container_name: mutual_mariadb
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: mutual
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: laravel
+        volumes:
+            - mariadb_data:/var/lib/mysql
+
+volumes:
+    mariadb_data:
