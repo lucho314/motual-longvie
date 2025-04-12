@@ -99,7 +99,7 @@
 
         <div class="footer">
             <p>Gracias por tu confianza.</p>
-            <p>Atentamente,</p>
+            <p>Atentamente</p>
             <p>El equipo de Asociación Mutual Personal Longvie Paraná</p>
         </div>
     </div>

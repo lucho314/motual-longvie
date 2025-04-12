@@ -14,7 +14,7 @@ export default function Login() {
     setError('')
 
     try {
-      await axios.get('/sanctum/csrf-cookie')
+      await client.get('/sanctum/csrf-cookie')
 
       const res = await client.post('/login', {
         email,
