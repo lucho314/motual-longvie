@@ -5,8 +5,8 @@ import axios from 'axios'
 import client from '@/lib/axiosClient'
 
 export default function Login() {
-  const [email, setEmail] = useState('admin@example.com')
-  const [password, setPassword] = useState('admin123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,14 +22,24 @@ export default function Login() {
       })
 
       if (res.status === 200) {
-        //redireccionar a con router
-        navigate('/')
+        const data = res.data
+        if (data.must_change_password) {
+          navigate('/password/change')
+        } else {
+          navigate('/')
+        }
       } else {
         const data = await res.data
+        console.log({ data })
         setError(data.message || 'Login failed')
       }
-    } catch (err) {
-      setError('Error en el servidor')
+    } catch (err: any) {
+      // Si el servidor respondió con status 422 o similar
+      if (err.response && err.response.data) {
+        setError(err.response.data.message || 'Login failed')
+      } else {
+        setError('Error en el servidor')
+      }
     }
   }
 

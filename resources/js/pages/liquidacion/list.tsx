@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import { useEffect, type FC } from 'react'
 import NavbarSidebarLayout from '../../layouts/navbar-sidebar'
 import { Breadcrumb, Label, TextInput } from 'flowbite-react'
 import { HiHome } from 'react-icons/hi'
@@ -6,6 +6,9 @@ import LiquidacionesMensualesTable from '@/components/liquidacion/LiquidacionesM
 import { Link } from 'react-router-dom'
 
 const ListLiquidacionPage: FC = () => {
+  useEffect(() => {
+    document.title = 'Liquidaciones | Mutual Longvie'
+  }, [])
   return (
     <NavbarSidebarLayout isFooter={false}>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex">

@@ -244,8 +244,8 @@ class SociosSeeder extends Seeder
             ['legajo' => 4707, 'nombre' => 'GUSTAVO NORBERTO GIMENEZ', 'correo' => 'ggimenez@longvie.com.ar'],
             ['legajo' => 4705, 'nombre' => 'GUIDO RODOLFO MULLER', 'correo' => 'guidormuller@gmail.com'],
             ['legajo' => 3564, 'nombre' => 'MARCELO JAVIER RUFANACHT', 'correo' => 'mrufanacht@longvie.com.ar'],
-            ['legajo' => 456, 'nombre' => 'MARIA PAZ KAMLOFKY', 'correo' => 'pazkam@gmail.com'],
-            ['legajo' => 123, 'nombre' => 'LUCIANO NAHUEL ZAPATA', 'correo' => 'luciano.zapata314@gmail.com'],
+            // ['legajo' => 456, 'nombre' => 'MARIA PAZ KAMLOFKY', 'correo' => 'pazkam@gmail.com'],
+            // ['legajo' => 123, 'nombre' => 'LUCIANO NAHUEL ZAPATA', 'correo' => 'luciano.zapata314@gmail.com'],
 
         ];
 

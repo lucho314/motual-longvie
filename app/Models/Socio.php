@@ -44,4 +44,9 @@ class Socio extends Model
     {
         return $this->hasMany(Retencion::class, 'legajo', 'legajo');
     }
+
+    public function setNombreAttribute($value)
+    {
+        $this->attributes['nombre'] = strtoupper($value);
+    }
 }

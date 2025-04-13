@@ -24,5 +24,14 @@ class AdminUserSeeder extends Seeder
                 'password' => Hash::make('admin123'), // poné una contraseña segura en producción
             ]
         );
+
+        User::updateOrCreate(
+            ['email' => 'ikamlofky@gmail.com'], // evita duplicados si se corre más de una vez
+            [
+                'name' => 'Isidro Kamlofky',
+                'email' => 'ikamlofky@gmail.com',
+                'password' => Hash::make('loyola'), // poné una contraseña segura en producción
+            ]
+        );
     }
 }

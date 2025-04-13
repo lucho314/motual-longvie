@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\SocioController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::get('/login', function () {
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/password/change', [ChangePasswordController::class, 'update'])->name('password.change');
 
 
 Route::middleware('auth')->group(function () {

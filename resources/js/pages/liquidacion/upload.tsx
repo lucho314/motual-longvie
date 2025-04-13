@@ -2,7 +2,7 @@ import LiquidacionesTable from '../../components/liquidacion/LiquidacionesTable'
 import UploadExcelModal from '../../components/liquidacion/UploadExcelModal'
 import { Breadcrumb, Button } from 'flowbite-react'
 import NavbarSidebarLayout from '../../layouts/navbar-sidebar'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { HiDocumentAdd, HiHome, HiUpload } from 'react-icons/hi'
 import { Liquidacion } from '@/interfaces/Liquidacion'
 import { parseExcelToLiquidaciones } from '@/utils/parseExcel'
@@ -15,6 +15,10 @@ const UploadPage: FC = () => {
   const [liquidaciones, setLiquidaciones] = useState<Liquidacion[]>([])
   const [periodo, setPeriodo] = useState('')
   const createLiquidacion = useCreateLiquidacion()
+
+  useEffect(() => {
+    document.title = 'Nueva Liquidacion | Mutual Longvie'
+  }, [])
 
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)

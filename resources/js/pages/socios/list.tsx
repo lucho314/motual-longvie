@@ -1,26 +1,32 @@
-import { KeyboardEventHandler, useState, type FC } from "react";
-import NavbarSidebarLayout from "../../layouts/navbar-sidebar";
-import { Breadcrumb, Button, Label, TextInput } from "flowbite-react";
-import { HiDocumentDownload, HiHome } from "react-icons/hi";
-import AddSocioModal from "../../components/socios/AddSocioModal";
-import SociosTable from "../../components/socios/SociosTable";
-import { useSocios } from "@/hooks/useSocios";
-import { Pagination } from "@/components/ui/Pagination";
+import { KeyboardEventHandler, useEffect, useState, type FC } from 'react'
+import NavbarSidebarLayout from '../../layouts/navbar-sidebar'
+import { Breadcrumb, Button, Label, TextInput } from 'flowbite-react'
+import { HiDocumentDownload, HiHome } from 'react-icons/hi'
+import AddSocioModal from '../../components/socios/AddSocioModal'
+import SociosTable from '../../components/socios/SociosTable'
+import { useSocios } from '@/hooks/useSocios'
+import { Pagination } from '@/components/ui/Pagination'
 
 const SocioListPage: FC = function () {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const { data, isLoading } = useSocios({ page, search });
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const { data, isLoading } = useSocios({ page, search })
+
+  useEffect(() => {
+    document.title = 'Socios | Mutual Longvie'
+  }, [])
 
   const handleSearch: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    const { key, currentTarget: { value } } = event;
-    
-    if (key !== "Enter") return;
-    setSearch(value);
-    setPage(1); // Reset to first page on new search
-    event.preventDefault();
-  };
-  
+    const {
+      key,
+      currentTarget: { value }
+    } = event
+
+    if (key !== 'Enter') return
+    setSearch(value)
+    setPage(1) // Reset to first page on new search
+    event.preventDefault()
+  }
 
   return (
     <NavbarSidebarLayout isFooter={false}>
@@ -91,7 +97,7 @@ const SocioListPage: FC = function () {
         </div>
       </div>
     </NavbarSidebarLayout>
-  );
-};
+  )
+}
 
-export default SocioListPage;
+export default SocioListPage

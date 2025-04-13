@@ -25,7 +25,7 @@ class StoreRetencionRequest extends FormRequest
     {
         return [
             'liquidaciones' => 'required|array|min:1',
-            'periodo' => ['required', 'string', 'regex:/^\d{4}-\d{2}$/', 'unique:retenciones,periodo']
+            'periodo' => ['required', 'string', 'regex:/^\d{4}-\d{2}$/', 'unique:retencions,periodo']
         ];
     }
 

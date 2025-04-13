@@ -1,9 +1,10 @@
-import type { FC, PropsWithChildren } from "react";
-import Navbar from "../components/navbar";
-import Sidebar from "../components/sidebar";
+import type { FC, PropsWithChildren } from 'react'
+import Navbar from '../components/navbar'
+import Sidebar from '../components/sidebar'
+import MobileBottomNav from '@/components/ui/MobileBottomNav'
 
 interface NavbarSidebarLayoutProps {
-  isFooter?: boolean;
+  isFooter?: boolean
 }
 
 const NavbarSidebarLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> =
@@ -11,17 +12,27 @@ const NavbarSidebarLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> =
     return (
       <>
         <Navbar />
-        <div className="flex items-start pt-16">
-          <Sidebar />
+        <div className="flex pt-16">
+          {/* Desktop sidebar */}
+          <div className="hidden md:block">
+            <Sidebar />
+          </div>
+
+          {/* Main content */}
           <MainContent isFooter={isFooter}>{children}</MainContent>
         </div>
+
+        {/* Mobile bottom nav */}
+        <div className="md:hidden fixed bottom-0 left-0 w-full z-50">
+          <MobileBottomNav />
+        </div>
       </>
-    );
-  };
+    )
+  }
 
 const MainContent: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = function ({
   children,
-  isFooter,
+  isFooter
 }) {
   return (
     <main className="relative h-full w-full overflow-y-auto bg-gray-50 dark:bg-gray-900 lg:ml-64">
@@ -32,8 +43,8 @@ const MainContent: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = function ({
         </div>
       )}
     </main>
-  );
-};
+  )
+}
 
 const MainContentFooter: FC = function () {
   return (
@@ -42,7 +53,7 @@ const MainContentFooter: FC = function () {
         &copy; 2019-2022 Flowbite.com. All rights reserved.
       </p>
     </>
-  );
-};
+  )
+}
 
-export default NavbarSidebarLayout;
+export default NavbarSidebarLayout

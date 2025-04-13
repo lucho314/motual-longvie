@@ -18,6 +18,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import Login from './pages/authentication/Login'
 import DetalleLiquidacionPage from './pages/liquidacion/DetalleLiquidacionPage'
+import ChangePassword from './pages/authentication/ChangePassword'
 
 const container = document.getElementById('root')
 
@@ -47,6 +48,8 @@ root.render(
               path="/liquidacion/detalle/:periodo"
               element={<DetalleLiquidacionPage />}
             />
+
+            <Route path="/password/change" element={<ChangePassword />} />
           </Routes>
         </BrowserRouter>
       </Flowbite>

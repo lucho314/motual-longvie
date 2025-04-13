@@ -2,7 +2,7 @@ import DetalleLiquidacionTable from '@/components/liquidacion/DetalleLiquidacion
 import { useDetalleLiquidacion } from '@/hooks/useDetalleLiquidacion'
 import NavbarSidebarLayout from '@/layouts/navbar-sidebar'
 import { Breadcrumb, Label, TextInput } from 'flowbite-react'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { HiHome } from 'react-icons/hi'
 import { useLocation, useParams } from 'react-router'
 
@@ -14,6 +14,9 @@ const DetalleLiquidacionPage: FC = () => {
     periodo: periodo || ''
   })
 
+  useEffect(() => {
+    document.title = 'Detalle liquidacion | Mutual Longvie'
+  }, [])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     setSearch(e.target.value.toLowerCase())

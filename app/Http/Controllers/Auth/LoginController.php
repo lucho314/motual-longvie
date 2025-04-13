@@ -22,12 +22,16 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+
+            return response()->json([
+                'message' => 'Login exitoso',
+                'must_change_password' => Auth::user()->must_change_password,
+            ]);
         }
 
-        return back()->withErrors([
-            'email' => 'Las credenciales no coinciden.',
-        ])->onlyInput('email');
+        return response()->json([
+            'message' => 'Las credenciales no coinciden.',
+        ], 422);
     }
 
     public function logout(Request $request)

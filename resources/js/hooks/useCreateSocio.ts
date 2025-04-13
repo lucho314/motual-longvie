@@ -1,10 +1,7 @@
-// src/hooks/useCreateSocio.ts
+import axios from 'axios'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Socio } from '@/interfaces/Socio'
 import client from '@/lib/axiosClient'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-
-import axios from 'axios'
-
 type CreateSocioDto = {
   legajo: number
   nombre: string
@@ -16,12 +13,23 @@ export function useCreateSocio() {
 
   return useMutation({
     mutationFn: async (data: CreateSocioDto): Promise<Socio> => {
-      const response = await client.post('/api/socios', data)
-      return response.data
+      try {
+        const response = await client.post('/api/socios', data)
+        return response.data
+      } catch (error) {
+        // Lanzamos el error para que pueda capturarse más adelante
+        if (axios.isAxiosError(error)) {
+          throw error.response?.data || error
+        }
+        throw error
+      }
     },
     onSuccess: () => {
-      // Refrescamos la lista de socios
       queryClient.invalidateQueries({ queryKey: ['socios'] })
+    },
+    onError: (error) => {
+      // Podés loguear o hacer algo más si querés
+      console.error('Error creando socio:', error)
     }
   })
 }

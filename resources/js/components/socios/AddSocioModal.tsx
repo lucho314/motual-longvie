@@ -15,6 +15,8 @@ type FormData = {
 
 const AddSocioModal: FC = function () {
   const [isOpen, setOpen] = useState(false)
+  const [serverErrors, setServerErrors] = useState<Partial<FormData>>({})
+
   const createSocio = useCreateSocio()
 
   const {
@@ -27,14 +29,21 @@ const AddSocioModal: FC = function () {
   })
 
   const onSubmit = (data: FormData) => {
+    setServerErrors({}) // Limpiamos errores previos
     createSocio.mutate(data, {
       onSuccess: () => {
         toast.success('Socio agregado con éxito')
         reset()
         setOpen(false)
       },
-      onError: () => {
-        toast.error('Hubo un error al agregar el socio')
+      onError: (error: any) => {
+        console.error('Error creando socio:', error)
+        if (error?.errors) {
+          // Captura los errores de validación que vienen del backend
+          setServerErrors(error.errors)
+        } else {
+          toast.error('Hubo un error al agregar el socio')
+        }
       }
     })
   }
@@ -63,9 +72,9 @@ const AddSocioModal: FC = function () {
                     placeholder="12345"
                     {...register('legajo')}
                   />
-                  {errors.legajo && (
+                  {(errors.legajo || serverErrors.legajo) && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.legajo.message}
+                      {errors.legajo?.message || serverErrors.legajo}
                     </p>
                   )}
                 </div>
@@ -79,9 +88,9 @@ const AddSocioModal: FC = function () {
                     placeholder="Juan Pérez"
                     {...register('nombre')}
                   />
-                  {errors.nombre && (
+                  {(errors.nombre || serverErrors.nombre) && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.nombre.message}
+                      {errors.nombre?.message || serverErrors.nombre}
                     </p>
                   )}
                 </div>
@@ -96,9 +105,9 @@ const AddSocioModal: FC = function () {
                     placeholder="socio@correo.com"
                     {...register('correo')}
                   />
-                  {errors.correo && (
+                  {(errors.correo || serverErrors.correo) && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.correo.message}
+                      {errors.correo?.message || serverErrors.correo}
                     </p>
                   )}
                 </div>

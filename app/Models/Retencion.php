@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Retencion extends Model
 {
     use HasFactory;
+    protected $table = 'retencions';
+
 
     protected $fillable = [
         'legajo',
