@@ -50,7 +50,7 @@ const MainContentFooter: FC = function () {
   return (
     <>
       <p className="my-8 text-center text-sm text-gray-500 dark:text-gray-300">
-        &copy; 2019-2022 Flowbite.com. All rights reserved.
+        &copy; 2025 Mutual Longvie. Todos los derechos reservados.
       </p>
     </>
   )

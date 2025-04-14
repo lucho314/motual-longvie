@@ -1,28 +1,41 @@
-import { FC, useState, ChangeEvent } from "react";
-import { Modal, Button, Label, FileInput } from "flowbite-react";
+import { FC, useState, ChangeEvent, useRef } from 'react'
+import { Modal, Button, Label, FileInput } from 'flowbite-react'
 
 interface UploadExcelModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onUpload: (file: File) => void;
+  isOpen: boolean
+  onClose: () => void
+  onUpload: (file: File) => void
 }
 
-const UploadExcelModal: FC<UploadExcelModalProps> = ({ isOpen, onClose, onUpload }) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+const UploadExcelModal: FC<UploadExcelModalProps> = ({
+  isOpen,
+  onClose,
+  onUpload
+}) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0]);
+      setSelectedFile(e.target.files[0])
     }
-  };
+  }
 
   const handleUpload = () => {
+    setSelectedFile(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
     if (selectedFile) {
-      onUpload(selectedFile);
-      onClose();
-      setSelectedFile(null);
+      onUpload(selectedFile)
+      onClose()
+      setSelectedFile(null)
     }
-  };
+  }
+
+  const handleCancel = () => {
+    setSelectedFile(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+    onClose()
+  }
 
   return (
     <Modal show={isOpen} onClose={onClose}>
@@ -38,6 +51,7 @@ const UploadExcelModal: FC<UploadExcelModalProps> = ({ isOpen, onClose, onUpload
               accept=".xlsx,.xls"
               onChange={handleFileChange}
               className="mt-2"
+              ref={fileInputRef}
             />
           </div>
         </div>
@@ -46,12 +60,12 @@ const UploadExcelModal: FC<UploadExcelModalProps> = ({ isOpen, onClose, onUpload
         <Button color="primary" onClick={handleUpload} disabled={!selectedFile}>
           Subir
         </Button>
-        <Button color="gray" onClick={onClose}>
+        <Button color="gray" onClick={handleCancel}>
           Cancelar
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export default UploadExcelModal;
+export default UploadExcelModal

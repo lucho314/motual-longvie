@@ -14,6 +14,8 @@ const UploadPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [liquidaciones, setLiquidaciones] = useState<Liquidacion[]>([])
   const [periodo, setPeriodo] = useState('')
+  const [isSending, setIsSending] = useState(false)
+
   const createLiquidacion = useCreateLiquidacion()
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const UploadPage: FC = () => {
   const handleSendEmail = async () => {
     console.log('liquidaciones', liquidaciones)
     if (!liquidaciones.length) return
-
+    setIsSending(true)
     try {
       await createLiquidacion.mutateAsync({
         liquidaciones,
@@ -49,6 +51,8 @@ const UploadPage: FC = () => {
       )
     } catch (error) {
       console.error('Error al enviar el correo', error)
+    } finally {
+      setIsSending(false)
     }
   }
 
@@ -74,14 +78,16 @@ const UploadPage: FC = () => {
         <div className="ml-auto flex items-center space-x-2 sm:space-x-3">
           <Button
             color="success"
-            disabled={!liquidaciones.length}
-            className={liquidaciones.length ? 'animate-pulse' : ''}
+            disabled={!liquidaciones.length || isSending}
+            className={
+              liquidaciones.length && !isSending ? 'animate-pulse' : ''
+            }
             onClick={handleSendEmail}
           >
             <div className="flex items-center gap-x-3">
               <BiMailSend />
               <span className="dark:text-white">
-                Guradar y enviar al correo
+                {isSending ? 'Enviando...' : 'Guardar y enviar al correo'}
               </span>
             </div>
           </Button>

@@ -1,18 +1,22 @@
 import DetalleLiquidacionTable from '@/components/liquidacion/DetalleLiquidacionTable'
 import { useDetalleLiquidacion } from '@/hooks/useDetalleLiquidacion'
 import NavbarSidebarLayout from '@/layouts/navbar-sidebar'
-import { Breadcrumb, Label, TextInput } from 'flowbite-react'
+import { Breadcrumb, Button, Label, TextInput } from 'flowbite-react'
 import { FC, useEffect, useState } from 'react'
+import { BiMailSend } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
 import { useLocation, useParams } from 'react-router'
+import { useReenviarLiquidacion } from './useReenviarLiquidacion'
 
 const DetalleLiquidacionPage: FC = () => {
   const { periodo } = useParams<{ periodo: string }>()
   const [search, setSearch] = useState('')
-
+  const [selectedIds, setSelectedIds] = useState<number[]>([])
   const { data, isLoading } = useDetalleLiquidacion({
     periodo: periodo || ''
   })
+
+  const { mutate: reenviarLiquidacion, isPending } = useReenviarLiquidacion()
 
   useEffect(() => {
     document.title = 'Detalle liquidacion | Mutual Longvie'
@@ -21,10 +25,30 @@ const DetalleLiquidacionPage: FC = () => {
     const { value } = e.target
     setSearch(e.target.value.toLowerCase())
   }
+  const handleSelectionChange = (ids: number[]) => {
+    setSelectedIds(ids)
+  }
 
   const filteredData = data?.filter((item) =>
     item.socio?.nombre?.toLowerCase().includes(search)
   )
+
+  const handleReenviar = () => {
+    if (selectedIds.length === 0) return
+
+    reenviarLiquidacion(
+      { retenciones_id: selectedIds },
+      {
+        onSuccess: (res) => {
+          console.log('Reenvío exitoso:', res)
+          // Podés mostrar una notificación acá
+        },
+        onError: (error) => {
+          console.error('Error al reenviar:', error)
+        }
+      }
+    )
+  }
 
   return (
     <NavbarSidebarLayout isFooter={false}>
@@ -65,12 +89,22 @@ const DetalleLiquidacionPage: FC = () => {
                 </div>
               </form>
             </div>
+            <div className="ml-auto flex items-center space-x-2 sm:space-x-3">
+              <Button color="success" onClick={handleReenviar}>
+                <div className="flex items-center gap-x-3">
+                  <BiMailSend />
+                  <span className="dark:text-white">Reenviar liquidacion</span>
+                  <span className="dark:text-white"></span>
+                </div>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
       <DetalleLiquidacionTable
         detallLiquidacion={filteredData}
         isLoading={isLoading}
+        onSelectionChange={handleSelectionChange}
       />
     </NavbarSidebarLayout>
   )

@@ -23,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('socios', SocioController::class);
     Route::apiResource('liquidacion', LiquidacionController::class);
+
+    //reenviarRetencionAlSocio
+    Route::post('liquidacion/reenviar', [LiquidacionController::class, 'reenviarRetencionAlSocio']);
 });

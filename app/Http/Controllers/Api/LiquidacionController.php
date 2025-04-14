@@ -106,4 +106,18 @@ class LiquidacionController extends Controller
     {
         //
     }
+
+    public function reenviarRetencionAlSocio(Request $request)
+    {
+        try {
+            $retencionesId = $request->input('retenciones_id');
+
+            foreach ($retencionesId as $retencionId) {
+                $this->retencionService->reenviarRetencionAlSocio($retencionId);
+            }
+            return response()->json(['message' => 'Retención reenviada correctamente']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al reenviar la retención: ' . $e->getMessage()], 500);
+        }
+    }
 }
