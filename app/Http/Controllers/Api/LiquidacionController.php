@@ -78,6 +78,7 @@ class LiquidacionController extends Controller
     public function show($periodo)
     {
         $retenciones = Retencion::with('socio')
+            ->select("id", "legajo", "total", "created_at")
             ->where('periodo', $periodo)
             ->get();
 
@@ -118,6 +119,49 @@ class LiquidacionController extends Controller
             return response()->json(['message' => 'Retención reenviada correctamente']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error al reenviar la retención: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function detalleLiquidacion($id)
+    {
+        try {
+            $retencion = Retencion::select([
+                'legajo',
+                'cuota',
+                'ss_adm',
+                'fcia_maria_luisa',
+                'fcia_amur',
+                'fcia_la_botica',
+                'oseca',
+                'villegas',
+                'luz_y_fza',
+                'flama',
+                'fontana',
+                'moto_city',
+                'transporte',
+                'mutual_sol',
+                'viandas',
+                'seguro',
+                'uso_ins_cd',
+                'cantina_cd',
+                'saldo',
+                'interes_saldo',
+                'sub_total',
+                'gasto_bancario',
+                'total',
+                "periodo",
+            ])
+                ->with('socio')
+                ->where('id', $id)
+                ->first();
+
+            if (!$retencion) {
+                return response()->json(['error' => 'Retención no encontrada'], 404);
+            }
+
+            return response()->json($retencion);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al obtener el detalle de la liquidación: ' . $e->getMessage()], 500);
         }
     }
 }

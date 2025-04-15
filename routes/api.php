@@ -26,4 +26,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //reenviarRetencionAlSocio
     Route::post('liquidacion/reenviar', [LiquidacionController::class, 'reenviarRetencionAlSocio']);
+    Route::get('liquidacion/{id}/detalle', [LiquidacionController::class, 'detalleLiquidacion']);
 });

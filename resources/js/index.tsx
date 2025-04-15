@@ -19,6 +19,7 @@ import { Toaster } from 'react-hot-toast'
 import Login from './pages/authentication/Login'
 import DetalleLiquidacionPage from './pages/liquidacion/DetalleLiquidacionPage'
 import ChangePassword from './pages/authentication/ChangePassword'
+import Liquidacion from './pages/liquidacion/Liquidacion'
 
 const container = document.getElementById('root')
 
@@ -50,6 +51,10 @@ root.render(
             />
 
             <Route path="/password/change" element={<ChangePassword />} />
+            <Route
+              path="/liquidacion/:liquidacionId/detalle"
+              element={<Liquidacion />}
+            />
           </Routes>
         </BrowserRouter>
       </Flowbite>

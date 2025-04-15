@@ -1,7 +1,7 @@
 import DetalleLiquidacionTable from '@/components/liquidacion/DetalleLiquidacionTable'
 import { useDetalleLiquidacion } from '@/hooks/useDetalleLiquidacion'
 import NavbarSidebarLayout from '@/layouts/navbar-sidebar'
-import { Breadcrumb, Button, Label, TextInput } from 'flowbite-react'
+import { Badge, Breadcrumb, Button, Label, TextInput } from 'flowbite-react'
 import { FC, useEffect, useState } from 'react'
 import { BiMailSend } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
@@ -72,7 +72,7 @@ const DetalleLiquidacionPage: FC = () => {
               Detalle de liquidacion periodo {periodo}
             </h1>
           </div>
-          <div className="sm:flex">
+          <div className="sm:flex sm:justify-between">
             <div className="mb-3 hidden items-center dark:divide-gray-700 sm:mb-0 sm:flex sm:divide-x sm:divide-gray-100">
               <form className="lg:pr-3">
                 <Label htmlFor="users-search" className="sr-only">
@@ -89,7 +89,13 @@ const DetalleLiquidacionPage: FC = () => {
                 </div>
               </form>
             </div>
-            <div className="ml-auto flex items-center space-x-2 sm:space-x-3">
+
+            <div className="mb-3 hidden items-center dark:divide-gray-700 sm:mb-0 sm:flex sm:divide-x sm:divide-gray-100">
+              <p className="mr-3 text-sm font-medium text-gray-900 dark:text-white">
+                <Badge> Seleccionados: {selectedIds.length}</Badge>
+              </p>
+            </div>
+            <div className="flex">
               <Button color="success" onClick={handleReenviar}>
                 <div className="flex items-center gap-x-3">
                   <BiMailSend />
