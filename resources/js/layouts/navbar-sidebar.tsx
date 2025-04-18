@@ -12,7 +12,7 @@ const NavbarSidebarLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> =
     return (
       <>
         <Navbar />
-        <div className="flex pt-16">
+        <div className="flex">
           {/* Desktop sidebar */}
           <div className="hidden md:block">
             <Sidebar />
