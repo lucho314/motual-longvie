@@ -18,6 +18,8 @@ export interface DetalleLiquidacion {
   viandas: string
   seguro: string
   uso_ins_cd: string
+  varios_bebidas: string
+  prestamos: string
   cantina_cd: string
   saldo: string
   interes_saldo: string

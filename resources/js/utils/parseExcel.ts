@@ -34,6 +34,8 @@ export function parseExcelToLiquidaciones(file: File): Promise<Liquidacion[]> {
           viandas: +Number(row['Viandas']).toFixed(2) || 0,
           seguro: +Number(row['Seguro']).toFixed(2) || 0,
           uso_ins_cd: +Number(row['Uso Ins Cd']).toFixed(2) || 0,
+          varios_bebidas: +Number(row['Varios -Bebidas'] || row['Varios - Bebidas'] || row['Varios-Bebidas'] || 0).toFixed(2) || 0,
+          prestamos: +Number(row['Prestamo']).toFixed(2) || 0,
           cantina_cd: +Number(row['Cantina CD']).toFixed(2) || 0,
           saldo: +Number(row['Saldos']).toFixed(2) || 0,
           interes_saldo: +Number(row['Inter. Saldo']).toFixed(2) || 0,

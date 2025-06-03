@@ -78,6 +78,16 @@ php artisan tinker
 - Mailtrap es utilizado para evitar envíos reales durante el desarrollo.
 - Los correos enviados pueden visualizarse en [inbox.mailtrap.io](https://mailtrap.io/inboxes).
 
+### Para agregar nuevos campos modificar
+ modified:   app/Http/Controllers/Api/LiquidacionController.php
+  modified:   app/Http/Requests/StoreRetencionRequest.php
+  modified:   app/Models/Retencion.php
+  modified:   resources/js/constants/columnasLiquidacion.ts
+  modified:   resources/js/interfaces/DetalleLiquidacion.ts
+  modified:   resources/js/interfaces/Liquidacion.ts
+  modified:   resources/js/utils/parseExcel.ts
+  modified:   resources/views/emails/liquidacion.blade.php
+
 ## 🧑‍💻 Autor
 
 Desarrollado por Luciano Nahuel Zapata.

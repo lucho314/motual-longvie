@@ -86,7 +86,8 @@
                     'oseca', 'villegas', 'luz_y_fza', 'flama', 'fontana',
                     'moto_city', 'transporte', 'mutual_sol', 'viandas', 'seguro',
                     'uso_ins_cd', 'cantina_cd', 'saldo', 'interes_saldo',
-                    'sub_total', 'gasto_bancario', 'total'
+                    'sub_total', 'gasto_bancario', 'varios_bebidas',
+                    'prestamos', 'total'
                 ];
             @endphp
 

@@ -18,6 +18,8 @@ export interface Liquidacion {
   seguro: number
   uso_ins_cd: number
   cantina_cd: number
+  varios_bebidas: number
+  prestamos: number
   saldo: number
   interes_saldo: number
   sub_total: number

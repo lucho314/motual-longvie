@@ -148,12 +148,15 @@ class LiquidacionController extends Controller
                 'seguro',
                 'uso_ins_cd',
                 'cantina_cd',
+                "varios_bebidas",
+                'prestamos',
                 'saldo',
                 'interes_saldo',
                 'sub_total',
                 'gasto_bancario',
                 'total',
-                "periodo",
+                "periodo"
+
             ])
                 ->with('socio')
                 ->where('id', $id)

@@ -15,6 +15,8 @@ export const columnas = [
   { key: 'viandas', label: 'Viandas' },
   { key: 'seguro', label: 'Seguro' },
   { key: 'uso_ins_cd', label: 'Uso Ins CD' },
+  { key: 'varios_bebidas', label: 'Varios - Bebidas' },
+  { key: 'prestamos', label: 'Préstamos' },
   { key: 'cantina_cd', label: 'Cantina CD' },
   { key: 'saldo', label: 'Saldo' },
   { key: 'interes_saldo', label: 'Interés Saldo' },
