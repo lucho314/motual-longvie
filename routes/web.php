@@ -22,6 +22,8 @@ Route::get('/login', function () {
     return view('welcome');
 })->name("login");
 
+//prueba devolver prueba
+
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/password/change', [ChangePasswordController::class, 'update'])->name('password.change');

@@ -33,9 +33,13 @@ class LiquidacionController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
+        $q = $request->input('search', null);
 
         $periodos = RetencionMensual::with('user')
             ->select('periodo', 'user_id', 'created_at', "id")
+            ->when($q, function ($query) use ($q) {
+                $query->where('periodo', 'like', "%$q%");
+            })
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
