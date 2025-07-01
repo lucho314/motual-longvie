@@ -35,6 +35,7 @@ class Retencion extends Model
         'cantina_cd',
         'varios_bebidas',
         'prestamos',
+        'interes_prestamos',
         'saldo',
         'interes_saldo',
         'sub_total',

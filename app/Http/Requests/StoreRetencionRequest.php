@@ -52,6 +52,7 @@ class StoreRetencionRequest extends FormRequest
                 'uso_ins_cd',
                 'varios_bebidas',
                 'prestamos',
+                'interes_prestamos',
                 'saldo',
                 'interes_saldo',
                 'sub_total',
