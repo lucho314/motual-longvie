@@ -20,6 +20,7 @@ export interface DetalleLiquidacion {
   uso_ins_cd: string
   varios_bebidas: string
   prestamos: string
+  interes_prestamos: string
   cantina_cd: string
   saldo: string
   interes_saldo: string

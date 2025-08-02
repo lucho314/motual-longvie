@@ -20,6 +20,7 @@ export interface Liquidacion {
   cantina_cd: number
   varios_bebidas: number
   prestamos: number
+  interes_prestamos: number
   saldo: number
   interes_saldo: number
   sub_total: number

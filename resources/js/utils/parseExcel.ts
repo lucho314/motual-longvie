@@ -36,6 +36,7 @@ export function parseExcelToLiquidaciones(file: File): Promise<Liquidacion[]> {
           uso_ins_cd: +Number(row['Uso Ins Cd']).toFixed(2) || 0,
           varios_bebidas: +Number(row['Varios -Bebidas'] || row['Varios - Bebidas'] || row['Varios-Bebidas'] || 0).toFixed(2) || 0,
           prestamos: +Number(row['Prestamo']).toFixed(2) || 0,
+          interes_prestamos: +Number(row['Int Prest']).toFixed(2) || 0,
           cantina_cd: +Number(row['Cantina CD']).toFixed(2) || 0,
           saldo: +Number(row['Saldos']).toFixed(2) || 0,
           interes_saldo: +Number(row['Inter. Saldo']).toFixed(2) || 0,
@@ -44,6 +45,7 @@ export function parseExcelToLiquidaciones(file: File): Promise<Liquidacion[]> {
           total: +Number(row['TOTAL']).toFixed(2) || 0
         }))
 
+        console.log('Liquidaciones parsed:', liquidaciones)
         resolve(liquidaciones)
       } catch (error) {
         reject(error)

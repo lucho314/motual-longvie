@@ -17,6 +17,7 @@ export const columnas = [
   { key: 'uso_ins_cd', label: 'Uso Ins CD' },
   { key: 'varios_bebidas', label: 'Varios - Bebidas' },
   { key: 'prestamos', label: 'Préstamos' },
+  { key: 'interes_prestamos', label: 'Interés Préstamos' },
   { key: 'cantina_cd', label: 'Cantina CD' },
   { key: 'saldo', label: 'Saldo' },
   { key: 'interes_saldo', label: 'Interés Saldo' },
@@ -47,5 +48,8 @@ export const campos = [
   'interes_saldo',
   'sub_total',
   'gasto_bancario',
-  'total'
+  'total',
+  'varios_bebidas',
+  'prestamos',
+  'interes_prestamos'
 ]
