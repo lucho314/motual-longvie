@@ -25,6 +25,7 @@ export interface Liquidacion {
   interes_saldo: number
   campera: number
   asado: number
+  torno_pezca: number
   sub_total: number
   gasto_bancario: number
   total: number

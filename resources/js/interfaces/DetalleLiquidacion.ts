@@ -26,6 +26,7 @@ export interface DetalleLiquidacion {
   interes_saldo: string
   campera: string
   asado: string
+  torno_pezca: string
   sub_total: string
   gasto_bancario: string
   total: string
