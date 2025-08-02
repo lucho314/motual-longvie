@@ -8,8 +8,6 @@ services:
     container_name: mutual_app
     volumes:
       - .:/var/www/html:cached
-      - /var/www/html/vendor
-      - /var/www/html/node_modules
     ports:
       - '8000:8000'
     depends_on:

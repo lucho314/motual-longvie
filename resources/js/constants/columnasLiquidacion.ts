@@ -21,6 +21,7 @@ export const columnas = [
   { key: 'cantina_cd', label: 'Cantina CD' },
   { key: 'saldo', label: 'Saldo' },
   { key: 'interes_saldo', label: 'Interés Saldo' },
+  { key: 'campera', label: 'Campera' },
   { key: 'sub_total', label: 'Subtotal' },
   { key: 'gasto_bancario', label: 'G. Bancario' },
   { key: 'total', label: 'Total' }
@@ -46,6 +47,7 @@ export const campos = [
   'cantina_cd',
   'saldo',
   'interes_saldo',
+  'campera',
   'sub_total',
   'gasto_bancario',
   'total',

@@ -24,6 +24,7 @@ export interface DetalleLiquidacion {
   cantina_cd: string
   saldo: string
   interes_saldo: string
+  campera: string
   sub_total: string
   gasto_bancario: string
   total: string

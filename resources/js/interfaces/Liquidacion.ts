@@ -23,6 +23,7 @@ export interface Liquidacion {
   interes_prestamos: number
   saldo: number
   interes_saldo: number
+  campera: number
   sub_total: number
   gasto_bancario: number
   total: number
