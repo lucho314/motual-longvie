@@ -16,7 +16,7 @@ php artisan generar:columna {key} {label} {row}
 ## Ejemplos de uso:
 ```bash
 # Agregar una nueva deducción
-php artisan generar:columna nueva_deduccion "Nueva Deducción" "Nueva Ded"
+php artisan generar:columna nueva_deduccion "Campera" "Campera"
 
 # Agregar descuento médico
 php artisan generar:columna descuento_medico "Descuento Médico" "Desc Med"
@@ -56,7 +56,29 @@ Agrega el mapeo desde el Excel:
 nueva_deduccion: +Number(row['Nueva Ded']).toFixed(2) || 0,
 ```
 
-### 5. Genera archivos SQL y migración Laravel
+### 5. Actualiza `resources/views/emails/liquidacion.blade.php`
+Agrega la nueva columna al array `$detalles` para que aparezca en los emails:
+```php
+'uso_ins_cd', 'cantina_cd', 'saldo', 'interes_saldo', 'nueva_deduccion',
+```
+
+### 6. Actualiza `app/Http/Controllers/Api/LiquidacionController.php`
+Agrega la nueva columna al método `detalleLiquidacion` en el `Retencion::select`:
+```php
+'interes_saldo',
+'nueva_deduccion',
+'sub_total',
+```
+
+### 7. Actualiza `app/Models/Retencion.php`
+Agrega la nueva columna al array `$fillable` del modelo:
+```php
+'interes_saldo',
+'nueva_deduccion',
+'sub_total',
+```
+
+### 8. Genera archivos SQL y migración Laravel
 - Crea un archivo `.sql` con las sentencias ALTER TABLE
 - Crea una migración de Laravel para agregar la columna a las tablas
 

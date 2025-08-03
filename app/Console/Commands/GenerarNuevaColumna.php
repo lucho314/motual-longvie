@@ -45,7 +45,16 @@ class GenerarNuevaColumna extends Command
       // 4. Actualizar parseExcel.ts
       $this->actualizarParseExcel($key, $row);
 
-      // 5. Generar SQL y migración Laravel
+      // 5. Actualizar liquidacion.blade.php
+      $this->actualizarBladeTemplate($key);
+
+      // 6. Actualizar LiquidacionController.php
+      $this->actualizarController($key);
+
+      // 7. Actualizar modelo Retencion.php
+      $this->actualizarModeloRetencion($key);
+
+      // 8. Generar SQL y migración Laravel
       $this->generarSQL($key);
 
       $this->info('✅ Columna generada exitosamente en todos los archivos!');
@@ -112,6 +121,48 @@ class GenerarNuevaColumna extends Command
     // Agregar antes de sub_total usando str_replace
     $search = "          sub_total: +Number(row['Sb total']).toFixed(2) || 0";
     $replacement = "          {$key}: +Number(row['{$row}']).toFixed(2) || 0,\n          sub_total: +Number(row['Sb total']).toFixed(2) || 0";
+    $newContent = str_replace($search, $replacement, $content);
+
+    File::put($filePath, $newContent);
+    $this->info("✅ Actualizado: {$filePath}");
+  }
+
+  private function actualizarBladeTemplate($key)
+  {
+    $filePath = resource_path('views/emails/liquidacion.blade.php');
+    $content = File::get($filePath);
+
+    // Buscar la línea específica y agregar la nueva key
+    $search = "                    'uso_ins_cd', 'cantina_cd', 'saldo', 'interes_saldo',";
+    $replacement = "                    'uso_ins_cd', 'cantina_cd', 'saldo', 'interes_saldo', '{$key}',";
+    $newContent = str_replace($search, $replacement, $content);
+
+    File::put($filePath, $newContent);
+    $this->info("✅ Actualizado: {$filePath}");
+  }
+
+  private function actualizarController($key)
+  {
+    $filePath = app_path('Http/Controllers/Api/LiquidacionController.php');
+    $content = File::get($filePath);
+
+    // Buscar la línea con 'interes_saldo' y agregar la nueva key después
+    $search = "                'interes_saldo',";
+    $replacement = "                'interes_saldo',\n                '{$key}',";
+    $newContent = str_replace($search, $replacement, $content);
+
+    File::put($filePath, $newContent);
+    $this->info("✅ Actualizado: {$filePath}");
+  }
+
+  private function actualizarModeloRetencion($key)
+  {
+    $filePath = app_path('Models/Retencion.php');
+    $content = File::get($filePath);
+
+    // Buscar la línea con 'interes_saldo' en el array fillable y agregar la nueva key después
+    $search = "        'interes_saldo',";
+    $replacement = "        'interes_saldo',\n        '{$key}',";
     $newContent = str_replace($search, $replacement, $content);
 
     File::put($filePath, $newContent);
