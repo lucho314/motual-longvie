@@ -178,8 +178,7 @@ class GenerarNuevaColumna extends Command
     $sql = "-- Agregar columna {$key} a las tablas necesarias
 -- Ejecutar este SQL en la base de datos
 
-ALTER TABLE retenciones_mensuales ADD COLUMN {$key} DECIMAL(10,2) DEFAULT 0.00;
-ALTER TABLE retenciones ADD COLUMN {$key} DECIMAL(10,2) DEFAULT 0.00;
+ALTER TABLE retencions ADD COLUMN {$key} DECIMAL(10,2) DEFAULT 0.00;
 
 -- Actualizar registros existentes (opcional)
 -- UPDATE retenciones_mensuales SET {$key} = 0.00 WHERE {$key} IS NULL;
