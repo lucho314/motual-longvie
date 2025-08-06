@@ -22,7 +22,26 @@ Route::get('/login', function () {
     return view('welcome');
 })->name("login");
 
-//prueba devolver prueba
+
+
+Route::get('/test-email-simple', function () {
+    try {
+        // Enviar un correo simple de prueba
+        \Illuminate\Support\Facades\Mail::raw('Este es un correo de prueba desde Laravel.', function ($message) {
+            $message->to('luciano.zapata314@gmail.com')
+                ->subject('Prueba de correo - Mutual Longvie');
+        });
+
+        return response()->json([
+            'message' => 'Correo simple enviado exitosamente',
+            'destinatario' => 'luciano.zapata314@gmail.com'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Error al enviar el correo simple: ' . $e->getMessage()
+        ], 500);
+    }
+});
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
