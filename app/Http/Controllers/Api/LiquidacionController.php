@@ -156,7 +156,11 @@ class LiquidacionController extends Controller
                 'sub_total',
                 'gasto_bancario',
                 'total',
-                "periodo"
+                "periodo",
+                'campera',
+                'asado',
+                'torno_pezca',
+
 
             ])
                 ->with('socio')
