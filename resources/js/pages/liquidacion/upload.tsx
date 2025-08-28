@@ -1,11 +1,12 @@
 import LiquidacionesTable from '../../components/liquidacion/LiquidacionesTable'
 import UploadExcelModal from '../../components/liquidacion/UploadExcelModal'
+import AnalisisColumnas from '../../components/liquidacion/AnalisisColumnas'
 import { Breadcrumb, Button } from 'flowbite-react'
 import NavbarSidebarLayout from '../../layouts/navbar-sidebar'
 import { FC, useEffect, useState } from 'react'
 import { HiDocumentAdd, HiHome, HiUpload } from 'react-icons/hi'
 import { Liquidacion } from '@/interfaces/Liquidacion'
-import { parseExcelToLiquidaciones } from '@/utils/parseExcel'
+import { parseExcelToLiquidaciones, ParseResult } from '@/utils/parseExcel'
 import { BiMailSend } from 'react-icons/bi'
 import { useCreateLiquidacion } from '@/hooks/useCreateLiquidacion'
 import toast from 'react-hot-toast'
@@ -15,6 +16,7 @@ const UploadPage: FC = () => {
   const [liquidaciones, setLiquidaciones] = useState<Liquidacion[]>([])
   const [periodo, setPeriodo] = useState('')
   const [isSending, setIsSending] = useState(false)
+  const [analisisColumnas, setAnalisisColumnas] = useState<ParseResult | null>(null)
 
   const createLiquidacion = useCreateLiquidacion()
 
@@ -28,10 +30,19 @@ const UploadPage: FC = () => {
   const handleUpload = async (file: File) => {
     try {
       const data = await parseExcelToLiquidaciones(file)
-      setLiquidaciones(data)
+      setLiquidaciones(data.liquidaciones)
+      setAnalisisColumnas(data)
       setIsModalOpen(false)
+      
+      // Mostrar notificación sobre columnas no procesadas
+      if (data.columnasNoProcesadas.length > 0) {
+        toast.error(`⚠️ Se encontraron ${data.columnasNoProcesadas.length} columnas no procesadas en el Excel`)
+      } else {
+        toast.success('✅ Todas las columnas del Excel están siendo procesadas')
+      }
     } catch (error) {
       console.error('Error al leer el archivo Excel', error)
+      toast.error('Error al leer el archivo Excel')
     }
   }
 
@@ -45,6 +56,7 @@ const UploadPage: FC = () => {
         periodo
       })
       setLiquidaciones([])
+      setAnalisisColumnas(null)
       setPeriodo('')
       toast.success(
         'Archivo guardado correctamente, los correos seran enviados...'
@@ -101,6 +113,9 @@ const UploadPage: FC = () => {
           </h1>
         </div>
       </div>
+
+      {/* Análisis de columnas */}
+      {analisisColumnas && <AnalisisColumnas analisis={analisisColumnas} />}
 
       <div className="flex flex-col min-h-[400px] relative">
         {!liquidaciones.length && (

@@ -27,6 +27,7 @@ export interface DetalleLiquidacion {
   campera: string
   asado: string
   torno_pezca: string
+  sofia_shop: string
   sub_total: string
   gasto_bancario: string
   total: string

@@ -24,6 +24,7 @@ export const columnas = [
   { key: 'campera', label: 'Campera' },
   { key: 'asado', label: 'Asado' },
   { key: 'torno_pezca', label: 'Torno Pezca' },
+  { key: 'sofia_shop', label: 'Sofia Shop' },
   { key: 'sub_total', label: 'Subtotal' },
   { key: 'gasto_bancario', label: 'G. Bancario' },
   { key: 'total', label: 'Total' }
@@ -52,6 +53,7 @@ export const campos = [
   'campera',
   'asado',
   'torno_pezca',
+  'sofia_shop',
   'sub_total',
   'gasto_bancario',
   'total',

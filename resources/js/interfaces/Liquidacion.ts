@@ -26,6 +26,7 @@ export interface Liquidacion {
   campera: number
   asado: number
   torno_pezca: number
+  sofia_shop: number
   sub_total: number
   gasto_bancario: number
   total: number
