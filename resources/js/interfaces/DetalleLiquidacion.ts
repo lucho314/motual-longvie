@@ -28,6 +28,7 @@ export interface DetalleLiquidacion {
   asado: string
   torno_pezca: string
   sofia_shop: string
+  cant_metal: string
   sub_total: string
   gasto_bancario: string
   total: string
