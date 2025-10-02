@@ -38,6 +38,7 @@ class Retencion extends Model
         'interes_prestamos',
         'saldo',
         'interes_saldo',
+        'cant_metal',
         'sofia_shop',
         'sub_total',
         'gasto_bancario',
