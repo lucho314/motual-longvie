@@ -26,9 +26,12 @@ export const columnas = [
   { key: 'torno_pezca', label: 'Torno Pezca' },
   { key: 'sofia_shop', label: 'Sofia Shop' },
   { key: 'cant_metal', label: 'Cant Metal' },
+  { key: 'alm_met', label: 'Alm. Met' },
+  { key: 'rifa', label: 'Rifa' },
   { key: 'sub_total', label: 'Subtotal' },
   { key: 'gasto_bancario', label: 'G. Bancario' },
-  { key: 'total', label: 'Total' }
+  { key: 'total', label: 'Total' },
+
 ]
 
 export const campos = [
@@ -56,6 +59,8 @@ export const campos = [
   'torno_pezca',
   'sofia_shop',
   'cant_metal',
+  'alm_met',
+  'rifa',
   'sub_total',
   'gasto_bancario',
   'total',

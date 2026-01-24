@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    depends_on:
+      - app
+    ports:
+      - '80:80'
+    volumes:
+      - storage:/var/www/html/storage
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile.prod
+    depends_on:
+      - mariadb
+      - redis
+    volumes:
+      - storage:/var/www/html/storage
+
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile.prod
+    depends_on:
+      - mariadb
+      - redis
+    command: php artisan queue:work --sleep=3 --tries=3 --timeout=90
+    volumes:
+      - storage:/var/www/html/storage
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile.prod
+    depends_on:
+      - mariadb
+      - redis
+    command: php artisan schedule:work
+    volumes:
+      - storage:/var/www/html/storage
+
+  mariadb:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mutual}
+      MYSQL_USER: ${MYSQL_USER:-laravel}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-laravel}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mariadb_data:
+  redis_data:
+  storage:

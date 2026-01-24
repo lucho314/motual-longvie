@@ -20,6 +20,7 @@ const AnalisisColumnas: React.FC<AnalisisColumnasProps> = ({ analisis }) => {
   }
 
   const generarSugerencias = (columnas: string[]) => {
+    console.log('Generando sugerencias para columnas:', columnas)
     return columnas.map(columna => {
       const key = columna.toLowerCase()
         .replace(/[áàäâ]/g, 'a')

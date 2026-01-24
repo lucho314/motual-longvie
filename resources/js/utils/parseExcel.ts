@@ -37,7 +37,9 @@ const COLUMN_MAPPING = {
   'TOTAL': 'total',
   "Sofia Shop":'sofia_shop',
   "Sueldo":'sueldo',
-  "Cant Metal":'cant_metal'
+  "Cant Metal":'cant_metal',
+  "Alm. Met":'alm_met',
+  "Rifa":'rifa'
 }
 
 export interface ParseResult {
@@ -65,9 +67,10 @@ export function parseExcelToLiquidaciones(file: File): Promise<ParseResult> {
         // Detectar columnas del Excel
         const columnasExcel = jsonData.length > 0 ? Object.keys(jsonData[0]) : []
         const columnasConocidas = Object.keys(COLUMN_MAPPING)
-        
+        // Filtrar columnas vacías o __EMPTY
+        const columnasExcelValidas = columnasExcel.filter(col => !col.includes('__EMPTY'))
         // Encontrar columnas no procesadas
-        const columnasNoProcesadas = columnasExcel.filter(col => 
+        const columnasNoProcesadas = columnasExcelValidas.filter(col => 
           !columnasConocidas.includes(col) && 
           !columnasConocidas.some(known => col.includes(known.split(' ')[0])) // Buscar variaciones
         )
@@ -115,6 +118,8 @@ export function parseExcelToLiquidaciones(file: File): Promise<ParseResult> {
           torno_pezca: +Number(row['Torno Pezca']).toFixed(2) || 0,
           sofia_shop: +Number(row['Sofia Shop']).toFixed(2) || 0,
           cant_metal: +Number(row['Cant Metal']).toFixed(2) || 0,
+          alm_met: +Number(row['Alm. Met']).toFixed(2) || 0,
+          rifa: +Number(row['Rifa']).toFixed(2) || 0,
           sub_total: +Number(row['Sb total']).toFixed(2) || 0,
           gasto_bancario: +Number(row['Gas Banc']).toFixed(2) || 0,
           total: +Number(row['TOTAL']).toFixed(2) || 0
@@ -126,8 +131,8 @@ export function parseExcelToLiquidaciones(file: File): Promise<ParseResult> {
         const result: ParseResult = {
           liquidaciones,
           columnasNoProcesadas,
-          totalColumnas: columnasExcel.length,
-          columnasProcesadas: columnasExcel.length - columnasNoProcesadas.length
+          totalColumnas: columnasExcelValidas.length,
+          columnasProcesadas: columnasExcelValidas.length - columnasNoProcesadas.length
         }
         
         resolve(result)
@@ -166,8 +171,9 @@ export function analizarColumnasExcel(file: File): Promise<{
         const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet, { defval: 0 })
         const columnasExcel = jsonData.length > 0 ? Object.keys(jsonData[0]) : []
         const columnasConocidas = Object.keys(COLUMN_MAPPING)
-        
-        const columnasNoProcesadas = columnasExcel.filter(col => 
+        // Filtrar columnas vacías o __EMPTY
+        const columnasExcelValidas = columnasExcel.filter(col => !col.includes('__EMPTY'))
+        const columnasNoProcesadas = columnasExcelValidas.filter(col => 
           !columnasConocidas.includes(col) && 
           !columnasConocidas.some(known => col.includes(known.split(' ')[0]))
         )
@@ -191,7 +197,7 @@ export function analizarColumnasExcel(file: File): Promise<{
         })
 
         resolve({
-          columnasEncontradas: columnasExcel,
+          columnasEncontradas: columnasExcelValidas,
           columnasNoProcesadas,
           sugerencias
         })

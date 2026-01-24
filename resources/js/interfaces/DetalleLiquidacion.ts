@@ -29,6 +29,8 @@ export interface DetalleLiquidacion {
   torno_pezca: string
   sofia_shop: string
   cant_metal: string
+  alm_met: string
+  rifa: string
   sub_total: string
   gasto_bancario: string
   total: string

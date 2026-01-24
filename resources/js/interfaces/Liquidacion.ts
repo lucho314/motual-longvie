@@ -28,6 +28,8 @@ export interface Liquidacion {
   torno_pezca: number
   sofia_shop: number
   cant_metal: number
+  alm_met: number
+  rifa: number
   sub_total: number
   gasto_bancario: number
   total: number
