@@ -21,15 +21,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-COPY composer.json composer.lock ./
+COPY . ./
 RUN composer install \
     --no-dev \
     --prefer-dist \
     --no-interaction \
     --optimize-autoloader
-
-COPY . ./
-RUN composer dump-autoload --optimize
 
 
 FROM php:8.2-fpm-bookworm
