@@ -1,34 +1,66 @@
-version: '3.8'
-
 services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    depends_on:
+      - app
+    ports:
+      - '80:80'
+    volumes:
+      - storage:/var/www/html/storage
+
   app:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: mutual_app
-    volumes:
-      - .:/var/www/html:cached
-    ports:
-      - '8000:8000'
     depends_on:
       - mariadb
-    working_dir: /var/www/html
-    environment:
-      - COMPOSER_ALLOW_SUPERUSER=1
-    command: sh -c "composer install && php artisan serve --host=0.0.0.0 --port=8000"
+      - redis
+    volumes:
+      - storage:/var/www/html/storage
+
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    depends_on:
+      - mariadb
+      - redis
+    command: php artisan queue:work --sleep=3 --tries=3 --timeout=90
+    volumes:
+      - storage:/var/www/html/storage
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    depends_on:
+      - mariadb
+      - redis
+    command: php artisan schedule:work
+    volumes:
+      - storage:/var/www/html/storage
+
   mariadb:
-    image: mariadb:10.5
-    container_name: mutual_mariadb
-    restart: always
-    ports:
-      - '3306:3306'
+    image: mariadb:10.11
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mutual
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mutual}
+      MYSQL_USER: ${MYSQL_USER:-laravel}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-laravel}
     volumes:
       - mariadb_data:/var/lib/mysql
 
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - redis_data:/data
+
 volumes:
   mariadb_data:
+  redis_data:
+  storage:
