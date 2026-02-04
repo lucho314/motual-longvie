@@ -26,12 +26,20 @@ services:
       - APP_URL=https://mutual-longvie.ar
       - DB_HOST=mariadb
       - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE}
+      - DB_DATABASE=mutual
       - DB_USERNAME=laravel
       - DB_PASSWORD=laravel
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=smtp-relay.brevo.com
+      - MAIL_PORT=587
+      - MAIL_USERNAME=8a30f9002@smtp-brevo.com
+      - MAIL_PASSWORD=MQ8KG9Ckjc7fwB4P
+      - MAIL_ENCRYPTION=tls
+      - MAIL_FROM_ADDRESS=notificaciones@mutual-longvie.ar
+      - MAIL_FROM_NAME=ASOCIACION MUTUAL PERSONAL LONGVIE PARANA
     volumes:
       - storage:/var/www/html/storage
     networks:
