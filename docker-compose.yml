@@ -22,7 +22,7 @@ services:
     environment:
       - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
       - APP_ENV=production
-      - APP_DEBUG=false
+      - APP_DEBUG=true
       - APP_URL=https://mutual-longvie.ar
       - DB_HOST=mariadb
       - DB_PORT=3306
