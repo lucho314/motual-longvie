@@ -30,6 +30,7 @@ export interface Liquidacion {
   cant_metal: number
   alm_met: number
   rifa: number
+  marv_mundo: number
   sub_total: number
   gasto_bancario: number
   total: number

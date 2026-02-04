@@ -31,6 +31,7 @@ export interface DetalleLiquidacion {
   cant_metal: string
   alm_met: string
   rifa: string
+  marv_mundo: string
   sub_total: string
   gasto_bancario: string
   total: string

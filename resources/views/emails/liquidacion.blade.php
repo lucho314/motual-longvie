@@ -85,7 +85,7 @@
                     'cuota', 'ss_adm', 'fcia_maria_luisa', 'fcia_amur', 'fcia_la_botica',
                     'oseca', 'villegas', 'luz_y_fza', 'flama', 'fontana',
                     'moto_city', 'transporte', 'mutual_sol', 'viandas', 'seguro',
-                    'uso_ins_cd', 'cantina_cd', 'saldo', 'interes_saldo', 'rifa', 'alm_met', 'cant_metal', 'sofia_shop',
+                    'uso_ins_cd', 'cantina_cd', 'saldo', 'interes_saldo', 'marv_mundo', 'rifa', 'alm_met', 'cant_metal', 'sofia_shop',
                     'gasto_bancario', 'varios_bebidas',
                     'prestamos', 'interes_prestamos','torno_pezca','asado','campera','total'
                 ];
