@@ -8,6 +8,8 @@ services:
       - app
     volumes:
       - storage:/var/www/html/storage
+    networks:
+      - mutual-network
 
   app:
     build:
@@ -27,6 +29,8 @@ services:
       - REDIS_PORT=6379
     volumes:
       - storage:/var/www/html/storage
+    networks:
+      - mutual-network
 
   queue:
     build:
@@ -47,6 +51,8 @@ services:
       - REDIS_PORT=6379
     volumes:
       - storage:/var/www/html/storage
+    networks:
+      - mutual-network
 
   scheduler:
     build:
@@ -67,6 +73,8 @@ services:
       - REDIS_PORT=6379
     volumes:
       - storage:/var/www/html/storage
+    networks:
+      - mutual-network
 
   mariadb:
     image: mariadb:10.11
@@ -78,6 +86,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-laravel}
     volumes:
       - mariadb_data:/var/lib/mysql
+    networks:
+      - mutual-network
 
   redis:
     image: redis:7-alpine
@@ -85,6 +95,12 @@ services:
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - redis_data:/data
+    networks:
+      - mutual-network
+
+networks:
+  mutual-network:
+    driver: bridge
 
 volumes:
   mariadb_data:
