@@ -20,15 +20,15 @@ services:
       - mariadb
       - redis
     environment:
-      - APP_KEY=${APP_KEY}
+      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
       - APP_ENV=production
       - APP_DEBUG=false
       - APP_URL=https://mutual-longvie.ar
       - DB_HOST=mariadb
       - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=mutual
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=laravel
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
@@ -47,13 +47,13 @@ services:
       - redis
     command: php artisan queue:work --sleep=3 --tries=3 --timeout=90
     environment:
-      - APP_KEY=${APP_KEY}
+      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
       - APP_ENV=production
       - DB_HOST=mariadb
       - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=mutual
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=laravel
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
@@ -72,13 +72,13 @@ services:
       - redis
     command: php artisan schedule:work
     environment:
-      - APP_KEY=${APP_KEY}
+      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
       - APP_ENV=production
       - DB_HOST=mariadb
       - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=mutual
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=laravel
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
@@ -91,12 +91,12 @@ services:
     image: mariadb:10.11
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mutual
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_data_v2:/var/lib/mysql
     networks:
       - mutual-network
 
@@ -114,6 +114,6 @@ networks:
     driver: bridge
 
 volumes:
-  mariadb_data:
+  mariadb_data_v2:
   redis_data:
   storage:
