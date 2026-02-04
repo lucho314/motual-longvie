@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sudo rm -rf \"public/D:\\\\mutual-retenciones\\\\storage\\\\logs/\")",
+      "Bash(git worktree:*)",
+      "Bash(chmod:*)",
+      "Bash(docker-compose:*)",
+      "Bash(curl:*)",
+      "Bash(for i in {1..5})",
+      "Bash(do curl -w \"Request $i: %{time_total}s\\\\n\" -o /dev/null -s http://localhost:8000)",
+      "Bash(done)",
+      "Bash(for:*)",
+      "Bash(do curl -w \"Request $i: %{time_total}s\\\\n\" -o /dev/null -s http://localhost:8000/api/socios)",
+      "Bash(php artisan:*)",
+      "Bash(copy:*)",
+      "Bash(C:/php-8.2/php8.2.exe artisan:*)",
+      "Bash(C:/php-8.2/php8.2.exe:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(openssl rand:*)"
+    ]
+  }
+}

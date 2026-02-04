@@ -6,3 +6,4 @@ npm-debug.log
 .phpunit.result.cache
 storage/logs
 storage/framework
+.pnpm-store/
