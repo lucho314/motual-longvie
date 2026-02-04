@@ -20,15 +20,15 @@ services:
       - mariadb
       - redis
     environment:
-      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
+      - APP_KEY=${{project.APP_KEY}}
       - APP_ENV=production
       - APP_DEBUG=false
       - APP_URL=https://mutual-longvie.ar
       - DB_HOST=mariadb
       - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE:-mutual}
-      - DB_USERNAME=${DB_USERNAME:-laravel}
-      - DB_PASSWORD=${DB_PASSWORD:-laravel}
+      - DB_DATABASE=${{project.DB_DATABASE}}
+      - DB_USERNAME=${{project.DB_USERNAME}}
+      - DB_PASSWORD=${{project.DB_PASSWORD}}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
@@ -47,13 +47,13 @@ services:
       - redis
     command: php artisan queue:work --sleep=3 --tries=3 --timeout=90
     environment:
-      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
+      - APP_KEY=${{project.APP_KEY}}
       - APP_ENV=production
       - DB_HOST=mariadb
       - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE:-mutual}
-      - DB_USERNAME=${DB_USERNAME:-laravel}
-      - DB_PASSWORD=${DB_PASSWORD:-laravel}
+      - DB_DATABASE=${{project.DB_DATABASE}}
+      - DB_USERNAME=${{project.DB_USERNAME}}
+      - DB_PASSWORD=${{project.DB_PASSWORD}}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
@@ -72,13 +72,13 @@ services:
       - redis
     command: php artisan schedule:work
     environment:
-      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
+      - APP_KEY=${{project.APP_KEY}}
       - APP_ENV=production
       - DB_HOST=mariadb
       - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE:-mutual}
-      - DB_USERNAME=${DB_USERNAME:-laravel}
-      - DB_PASSWORD=${DB_PASSWORD:-laravel}
+      - DB_DATABASE=${{project.DB_DATABASE}}
+      - DB_USERNAME=${{project.DB_USERNAME}}
+      - DB_PASSWORD=${{project.DB_PASSWORD}}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
@@ -91,10 +91,10 @@ services:
     image: mariadb:10.11
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-mutual}
-      MYSQL_USER: ${MYSQL_USER:-laravel}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-laravel}
+      MYSQL_ROOT_PASSWORD: ${{project.MYSQL_ROOT_PASSWORD}}
+      MYSQL_DATABASE: ${{project.MYSQL_DATABASE}}
+      MYSQL_USER: ${{project.MYSQL_USER}}
+      MYSQL_PASSWORD: ${{project.MYSQL_PASSWORD}}
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
