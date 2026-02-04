@@ -56,7 +56,7 @@ WORKDIR /var/www/html
 COPY --from=composer_builder /app /var/www/html
 COPY --from=node_builder /app/public/build /var/www/html/public/build
 
-COPY .docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 COPY docker/php/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh \
