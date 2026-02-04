@@ -23,7 +23,15 @@ php artisan view:cache
 php artisan route:cache || true
 php artisan event:cache || true
 
-# Run migrations (fails silently si la DB aún no está lista en el primer arranque).
-php artisan migrate --no-interaction --force || true
+# Espera a que MariaDB esté lista y corre migrations con retry.
+RETRIES=0
+while [ $RETRIES -lt 30 ]; do
+  if php artisan migrate --no-interaction --force; then
+    break
+  fi
+  RETRIES=$((RETRIES + 1))
+  echo "DB no lista, retry $RETRIES/30 en 3s..."
+  sleep 3
+done
 
 exec "$@"
