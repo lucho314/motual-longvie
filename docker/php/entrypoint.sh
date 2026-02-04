@@ -23,4 +23,7 @@ php artisan view:cache
 php artisan route:cache || true
 php artisan event:cache || true
 
+# Run migrations (fails silently si la DB aún no está lista en el primer arranque).
+php artisan migrate --no-interaction || true
+
 exec "$@"
