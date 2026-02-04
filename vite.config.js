@@ -11,8 +11,6 @@ export default defineConfig({
             refresh: true
         }),
         react(),
-
-
     ],
     resolve: {
         alias: {
@@ -20,7 +18,26 @@ export default defineConfig({
         },
     },
     server: {
-        host: '127.0.0.1',
-        port: 5173
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        hmr: {
+            host: 'localhost'
+        },
+        watch: {
+            usePolling: false
+        }
+    },
+    optimizeDeps: {
+        include: ['react', 'react-dom', 'react-router-dom']
+    },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['react', 'react-dom', 'react-router-dom']
+                }
+            }
+        }
     }
 })

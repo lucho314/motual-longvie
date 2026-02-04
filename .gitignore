@@ -4,6 +4,8 @@
 /public/storage
 /storage/*.key
 /vendor
+.pnpm-store/
+.claude/
 .env
 .env.backup
 .env.production
@@ -16,3 +18,15 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Development
+.env.development.local
+*.log
+*.pid
+
+# Xdebug
+.xdebug/

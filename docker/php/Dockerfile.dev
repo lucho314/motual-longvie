@@ -1,0 +1,36 @@
+# syntax=docker/dockerfile:1
+
+FROM php:8.2-fpm-bookworm AS development
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    git \
+    libicu-dev \
+    libzip-dev \
+    unzip \
+    zip \
+    $PHPIZE_DEPS \
+    && docker-php-ext-install \
+        intl \
+        pdo \
+        pdo_mysql \
+        zip \
+    && pecl install redis xdebug \
+    && docker-php-ext-enable redis xdebug \
+    && apt-get purge -y --auto-remove $PHPIZE_DEPS \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy entrypoint script
+COPY docker/php/entrypoint.dev.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["php-fpm"]
