@@ -1,14 +1,15 @@
 #!/usr/bin/env sh
 set -eu
 
-# Ensure runtime-writable directories exist.
+# Ensure runtime-writable directories exist and tienen ownership correcto.
 mkdir -p \
-  storage/app \
+  storage/app/public \
   storage/framework/cache \
   storage/framework/sessions \
   storage/framework/views \
   storage/logs \
   bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
 
 # Make sure the public storage symlink exists (volume can mask it).
 if [ ! -L public/storage ]; then
