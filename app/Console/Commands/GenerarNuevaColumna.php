@@ -118,10 +118,15 @@ class GenerarNuevaColumna extends Command
     $filePath = resource_path('js/utils/parseExcel.ts');
     $content = File::get($filePath);
 
+    // Agregar al COLUMN_MAPPING antes de Sb total
+    $searchMapping = "  'Sb total': 'sub_total',";
+    $replacementMapping = "  '{$row}': '{$key}',\n  'Sb total': 'sub_total',";
+    $newContent = str_replace($searchMapping, $replacementMapping, $content);
+
     // Agregar antes de sub_total usando str_replace
     $search = "          sub_total: +Number(row['Sb total']).toFixed(2) || 0";
     $replacement = "          {$key}: +Number(row['{$row}']).toFixed(2) || 0,\n          sub_total: +Number(row['Sb total']).toFixed(2) || 0";
-    $newContent = str_replace($search, $replacement, $content);
+    $newContent = str_replace($search, $replacement, $newContent);
 
     File::put($filePath, $newContent);
     $this->info("✅ Actualizado: {$filePath}");
@@ -188,16 +193,31 @@ ALTER TABLE retencions ADD COLUMN {$key} DECIMAL(10,2) DEFAULT 0.00;
     File::put($filePath, $sql);
     $this->info("✅ Generado SQL: {$filePath}");
 
-    // También generar migración de Laravel
-    //$this->generarMigracionLaravel($key);
+    // También generar migración de Laravel con Artisan
+    $this->generarMigracionLaravel($key);
   }
 
   private function generarMigracionLaravel($key)
   {
-    $timestamp = date('Y_m_d_His');
-    $className = 'Add' . str_replace('_', '', ucwords($key, '_')) . 'Column';
-    $fileName = "{$timestamp}_add_{$key}_column.php";
-    $filePath = database_path("migrations/{$fileName}");
+    $migrationName = "add_{$key}_to_retencions_table";
+
+    $exitCode = $this->call('make:migration', [
+      'name' => $migrationName,
+      '--table' => 'retencions',
+    ]);
+
+    if ($exitCode !== 0) {
+      throw new \RuntimeException('No se pudo generar la migración con Artisan.');
+    }
+
+    $candidates = glob(database_path("migrations/*_{$migrationName}.php"));
+
+    if (!$candidates || count($candidates) === 0) {
+      throw new \RuntimeException('No se encontró el archivo de migración generado por Artisan.');
+    }
+
+    sort($candidates);
+    $filePath = end($candidates);
 
     $migrationContent = "<?php
 
@@ -212,13 +232,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('retenciones_mensuales', function (Blueprint \$table) {
+      Schema::table('retencions', function (Blueprint \$table) {
             \$table->decimal('{$key}', 10, 2)->default(0.00)->after('interes_saldo');
         });
 
-        Schema::table('retenciones', function (Blueprint \$table) {
-            \$table->decimal('{$key}', 10, 2)->default(0.00)->after('interes_saldo');
-        });
+      Schema::table('retencion_mensuals', function (Blueprint \$table) {
+        \$table->decimal('{$key}', 10, 2)->default(0.00)->after('interes_saldo');
+      });
     }
 
     /**
@@ -226,11 +246,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('retenciones_mensuales', function (Blueprint \$table) {
+      Schema::table('retencions', function (Blueprint \$table) {
             \$table->dropColumn('{$key}');
         });
 
-        Schema::table('retenciones', function (Blueprint \$table) {
+      Schema::table('retencion_mensuals', function (Blueprint \$table) {
             \$table->dropColumn('{$key}');
         });
     }

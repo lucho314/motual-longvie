@@ -84,7 +84,7 @@ Agrega la nueva columna al array `$fillable` del modelo:
 
 ## Archivos generados:
 - `database/migrations/YYYY_MM_DD_HHMMSS_add_{key}_column.sql` - SQL directo
-- `database/migrations/YYYY_MM_DD_HHMMSS_add_{key}_column.php` - Migración Laravel
+- `database/migrations/YYYY_MM_DD_HHMMSS_add_{key}_to_retencions_table.php` - Migración Laravel generada con Artisan
 
 ## Después de ejecutar el comando:
 

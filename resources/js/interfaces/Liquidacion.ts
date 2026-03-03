@@ -31,6 +31,7 @@ export interface Liquidacion {
   alm_met: number
   rifa: number
   marv_mundo: number
+  torneo_pesca: number
   sub_total: number
   gasto_bancario: number
   total: number
