@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if (!Schema::hasColumn('retencions', 'asado')) {
             Schema::table('retencions', function (Blueprint $table) {
-                $table->decimal('asado', 10, 2)->default(0.00)->after('campera');
+                $table->decimal('asado', 10, 2)->default(0.00);
             });
         }
     }
