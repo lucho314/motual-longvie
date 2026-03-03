@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-      Schema::table('retencions', function (Blueprint $table) {
-            $table->decimal('torneo_pesca', 10, 2)->default(0.00)->after('interes_saldo');
+      if (!Schema::hasColumn('retencions', 'torneo_pesca')) {
+        Schema::table('retencions', function (Blueprint $table) {
+          $table->decimal('torneo_pesca', 10, 2)->default(0.00);
         });
+      }
 
-      Schema::table('retencion_mensuals', function (Blueprint $table) {
-        $table->decimal('torneo_pesca', 10, 2)->default(0.00)->after('interes_saldo');
-      });
+      if (!Schema::hasColumn('retencion_mensuals', 'torneo_pesca')) {
+        Schema::table('retencion_mensuals', function (Blueprint $table) {
+          $table->decimal('torneo_pesca', 10, 2)->default(0.00);
+        });
+      }
     }
 
     /**
@@ -25,12 +29,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-      Schema::table('retencions', function (Blueprint $table) {
-            $table->dropColumn('torneo_pesca');
+      if (Schema::hasColumn('retencions', 'torneo_pesca')) {
+        Schema::table('retencions', function (Blueprint $table) {
+          $table->dropColumn('torneo_pesca');
         });
+      }
 
-      Schema::table('retencion_mensuals', function (Blueprint $table) {
-            $table->dropColumn('torneo_pesca');
+      if (Schema::hasColumn('retencion_mensuals', 'torneo_pesca')) {
+        Schema::table('retencion_mensuals', function (Blueprint $table) {
+          $table->dropColumn('torneo_pesca');
         });
+      }
     }
 };

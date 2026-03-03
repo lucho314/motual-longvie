@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('must_change_password')->default(false);
-        });
+        if (!Schema::hasColumn('users', 'must_change_password')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->boolean('must_change_password')->default(false);
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasColumn('users', 'must_change_password')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('must_change_password');
+            });
+        }
     }
 };

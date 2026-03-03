@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('retencions', function (Blueprint $table) {
-            $table->decimal('marv_mundo', 10, 2)->default(0.00);
-        });
+        if (!Schema::hasColumn('retencions', 'marv_mundo')) {
+            Schema::table('retencions', function (Blueprint $table) {
+                $table->decimal('marv_mundo', 10, 2)->default(0.00);
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('retencions', function (Blueprint $table) {
-            $table->dropColumn('marv_mundo');
-        });
+        if (Schema::hasColumn('retencions', 'marv_mundo')) {
+            Schema::table('retencions', function (Blueprint $table) {
+                $table->dropColumn('marv_mundo');
+            });
+        }
     }
 };
