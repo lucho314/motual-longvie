@@ -56,6 +56,7 @@ class EnviarLiquidacionesPorCorreo implements ShouldQueue
                 try {
                     logger("📬 Enviando mail a: {$socio->correo}");
                     Mail::to($socio->correo)->send(new LiquidacionMail($socio, $items));
+                    usleep(500000);
                 } catch (\Throwable $e) {
                     logger("🔥 Error al enviar mail a {$socio->correo}: " . $e->getMessage());
                     logger($e->getTraceAsString());
