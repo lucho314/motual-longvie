@@ -48,11 +48,17 @@ class EnviarLiquidacionesPorCorreo implements ShouldQueue
             foreach ($retenciones as $items) {
                 $socio = $items->socio;
 
-                if ($socio && $socio->correo) {
+                if (!$socio || !$socio->correo) {
+                    logger("⚠️ Socio sin correo: ID {$socio->id}");
+                    continue;
+                }
+
+                try {
                     logger("📬 Enviando mail a: {$socio->correo}");
                     Mail::to($socio->correo)->send(new LiquidacionMail($socio, $items));
-                } else {
-                    logger("⚠️ Socio sin correo: ID {$socio->id}");
+                } catch (\Throwable $e) {
+                    logger("🔥 Error al enviar mail a {$socio->correo}: " . $e->getMessage());
+                    logger($e->getTraceAsString());
                 }
             }
         } catch (\Throwable $e) {
