@@ -1,3 +1,26 @@
+x-laravel-environment: &laravel-environment
+  APP_KEY: ${APP_KEY:?APP_KEY is required}
+  APP_ENV: ${APP_ENV:-production}
+  APP_DEBUG: ${APP_DEBUG:-false}
+  APP_URL: ${APP_URL:-https://mutual-longvie.ar}
+  DB_CONNECTION: ${DB_CONNECTION:-mysql}
+  DB_HOST: ${DB_HOST:-mariadb}
+  DB_PORT: ${DB_PORT:-3306}
+  DB_DATABASE: ${DB_DATABASE:-mutual}
+  DB_USERNAME: ${DB_USERNAME:-laravel}
+  DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+  REDIS_HOST: ${REDIS_HOST:-redis}
+  REDIS_PORT: ${REDIS_PORT:-6379}
+  QUEUE_CONNECTION: ${QUEUE_CONNECTION:-redis}
+  MAIL_MAILER: ${MAIL_MAILER:-smtp}
+  MAIL_HOST: ${MAIL_HOST:-smtp-relay.brevo.com}
+  MAIL_PORT: ${MAIL_PORT:-587}
+  MAIL_USERNAME: ${MAIL_USERNAME:?MAIL_USERNAME is required}
+  MAIL_PASSWORD: ${MAIL_PASSWORD:?MAIL_PASSWORD is required}
+  MAIL_ENCRYPTION: ${MAIL_ENCRYPTION:-tls}
+  MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:?MAIL_FROM_ADDRESS is required}
+  MAIL_FROM_NAME: ${MAIL_FROM_NAME:-ASOCIACION MUTUAL PERSONAL LONGVIE PARANA}
+
 services:
   nginx:
     build:
@@ -20,26 +43,7 @@ services:
       - mariadb
       - redis
     environment:
-      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
-      - APP_ENV=production
-      - APP_DEBUG=false
-      - APP_URL=https://mutual-longvie.ar
-      - DB_HOST=mariadb
-      - DB_PORT=3306
-      - DB_DATABASE=mutual
-      - DB_USERNAME=laravel
-      - DB_PASSWORD=laravel
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - QUEUE_CONNECTION=redis
-      - MAIL_MAILER=smtp
-      - MAIL_HOST=smtp-relay.brevo.com
-      - MAIL_PORT=587
-      - MAIL_USERNAME=8a30f9002@smtp-brevo.com
-      - MAIL_PASSWORD=MQ8KG9Ckjc7fwB4P
-      - MAIL_ENCRYPTION=tls
-      - MAIL_FROM_ADDRESS=notificaciones@mutual-longvie.ar
-      - MAIL_FROM_NAME=ASOCIACION MUTUAL PERSONAL LONGVIE PARANA
+      <<: *laravel-environment
     volumes:
       - storage:/var/www/html/storage
     networks:
@@ -55,24 +59,7 @@ services:
       - redis
     command: php artisan queue:work --sleep=3 --tries=3 --timeout=90
     environment:
-      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
-      - APP_ENV=production
-      - DB_HOST=mariadb
-      - DB_PORT=3306
-      - DB_DATABASE=mutual
-      - DB_USERNAME=laravel
-      - DB_PASSWORD=laravel
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - QUEUE_CONNECTION=redis
-      - MAIL_MAILER=smtp
-      - MAIL_HOST=smtp-relay.brevo.com
-      - MAIL_PORT=587
-      - MAIL_USERNAME=8a30f9002@smtp-brevo.com
-      - MAIL_PASSWORD=MQ8KG9Ckjc7fwB4P
-      - MAIL_ENCRYPTION=tls
-      - MAIL_FROM_ADDRESS=notificaciones@mutual-longvie.ar
-      - MAIL_FROM_NAME=ASOCIACION MUTUAL PERSONAL LONGVIE PARANA
+      <<: *laravel-environment
     volumes:
       - storage:/var/www/html/storage
     networks:
@@ -88,24 +75,7 @@ services:
       - redis
     command: php artisan schedule:work
     environment:
-      - APP_KEY=base64:Ol5fo/ML682gkLo05w3P7DWWUmydFW/pS5QAY5TIftA=
-      - APP_ENV=production
-      - DB_HOST=mariadb
-      - DB_PORT=3306
-      - DB_DATABASE=mutual
-      - DB_USERNAME=laravel
-      - DB_PASSWORD=laravel
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - QUEUE_CONNECTION=redis
-      - MAIL_MAILER=smtp
-      - MAIL_HOST=smtp-relay.brevo.com
-      - MAIL_PORT=587
-      - MAIL_USERNAME=8a30f9002@smtp-brevo.com
-      - MAIL_PASSWORD=MQ8KG9Ckjc7fwB4P
-      - MAIL_ENCRYPTION=tls
-      - MAIL_FROM_ADDRESS=notificaciones@mutual-longvie.ar
-      - MAIL_FROM_NAME=ASOCIACION MUTUAL PERSONAL LONGVIE PARANA
+      <<: *laravel-environment
     volumes:
       - storage:/var/www/html/storage
     networks:
@@ -115,10 +85,10 @@ services:
     image: mariadb:10.11
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mutual
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD is required}
+      MYSQL_DATABASE: ${DB_DATABASE:-mutual}
+      MYSQL_USER: ${DB_USERNAME:-laravel}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
     volumes:
       - mariadb_data_v2:/var/lib/mysql
     networks:
