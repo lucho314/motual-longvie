@@ -1,6 +1,11 @@
 // components/MobileBottomNav.tsx
 import { Link, useLocation } from 'react-router-dom'
-import { HiUsers, HiDocumentReport, HiFolderOpen } from 'react-icons/hi'
+import {
+  HiUsers,
+  HiDocumentReport,
+  HiFolderOpen,
+  HiShieldCheck
+} from 'react-icons/hi'
 import { FC } from 'react'
 
 const MobileBottomNav: FC = () => {
@@ -10,7 +15,8 @@ const MobileBottomNav: FC = () => {
   const navItems = [
     { to: '/socios/list', icon: <HiUsers />, label: 'Socios' },
     { to: '/liquidacion/upload', icon: <HiDocumentReport />, label: 'Subir' },
-    { to: '/liquidacion/list', icon: <HiFolderOpen />, label: 'Listar' }
+    { to: '/liquidacion/list', icon: <HiFolderOpen />, label: 'Listar' },
+    { to: '/users/list', icon: <HiShieldCheck />, label: 'Usuarios' }
   ]
 
   return (

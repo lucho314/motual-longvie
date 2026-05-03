@@ -1,0 +1,7 @@
+export interface User {
+  id: number
+  name: string
+  email: string
+  must_change_password: boolean
+  created_at: string | null
+}

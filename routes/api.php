@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\LiquidacionController;
 use App\Http\Controllers\Api\SocioController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('socios', SocioController::class);
     Route::apiResource('liquidacion', LiquidacionController::class);
+    Route::get('users', [UserController::class, 'index']);
+    Route::post('users', [UserController::class, 'store']);
+    Route::patch('users/password', [UserController::class, 'updatePassword']);
 
     //reenviarRetencionAlSocio
     Route::post('liquidacion/reenviar', [LiquidacionController::class, 'reenviarRetencionAlSocio']);

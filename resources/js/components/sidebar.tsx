@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import {
   HiDocumentReport,
   HiFolderOpen,
-  HiLogout,
-  HiSearch
+  HiSearch,
+  HiShieldCheck
 } from 'react-icons/hi'
 import { HiUsers } from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom'
@@ -64,6 +64,18 @@ const ExampleSidebar: FC = function () {
                 }
               >
                 Liquidaciones
+              </Sidebar.Item>
+              <Sidebar.Item
+                as={Link}
+                to="/users/list"
+                icon={HiShieldCheck}
+                className={
+                  '/users/list' === currentPage
+                    ? 'bg-gray-100 dark:bg-gray-700'
+                    : ''
+                }
+              >
+                Usuarios
               </Sidebar.Item>
               <LogoutButton />
             </Sidebar.ItemGroup>
