@@ -33,6 +33,8 @@ const COLUMN_MAPPING = {
   'Asado': 'asado',
   'Torno Pezca': 'torno_pezca',
   'Torneo Pesca': 'torneo_pesca',
+  'C. superv': 'c_superv',
+  'Com del trab': 'com_del_trab',
   'Sb total': 'sub_total',
   'Gas Banc': 'gasto_bancario',
   'TOTAL': 'total',
@@ -122,6 +124,8 @@ export function parseExcelToLiquidaciones(file: File): Promise<ParseResult> {
           rifa: +Number(row['Rifa']).toFixed(2) || 0,
           marv_mundo: +Number(row['Marv. Mundo']).toFixed(2) || 0,
           torneo_pesca: +Number(row['Torneo Pesca']).toFixed(2) || 0,
+          c_superv: +Number(row['C. superv']).toFixed(2) || 0,
+          com_del_trab: +Number(row['Com del trab']).toFixed(2) || 0,
           sub_total: +Number(row['Sb total']).toFixed(2) || 0,
           gasto_bancario: +Number(row['Gas Banc']).toFixed(2) || 0,
           total: +Number(row['TOTAL']).toFixed(2) || 0

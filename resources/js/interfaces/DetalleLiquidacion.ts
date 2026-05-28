@@ -33,6 +33,8 @@ export interface DetalleLiquidacion {
   rifa: string
   marv_mundo: string
   torneo_pesca: string
+  c_superv: string
+  com_del_trab: string
   sub_total: string
   gasto_bancario: string
   total: string

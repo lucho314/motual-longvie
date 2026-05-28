@@ -38,6 +38,8 @@ class Retencion extends Model
         'interes_prestamos',
         'saldo',
         'interes_saldo',
+        'com_del_trab',
+        'c_superv',
         'torneo_pesca',
         'marv_mundo',
         'rifa',
