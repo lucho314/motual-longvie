@@ -34,6 +34,7 @@ export interface Liquidacion {
   torneo_pesca: number
   c_superv: number
   com_del_trab: number
+  inst_cd: number
   sub_total: number
   gasto_bancario: number
   total: number

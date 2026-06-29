@@ -35,6 +35,7 @@ export interface DetalleLiquidacion {
   torneo_pesca: string
   c_superv: string
   com_del_trab: string
+  inst_cd: string
   sub_total: string
   gasto_bancario: string
   total: string

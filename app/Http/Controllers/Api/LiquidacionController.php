@@ -153,6 +153,7 @@ class LiquidacionController extends Controller
                 'interes_prestamos',
                 'saldo',
                 'interes_saldo',
+                'inst_cd',
                 'com_del_trab',
                 'c_superv',
                 'torneo_pesca',
