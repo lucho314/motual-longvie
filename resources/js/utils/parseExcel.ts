@@ -36,6 +36,7 @@ const COLUMN_MAPPING = {
   'C. superv': 'c_superv',
   'Com del trab': 'com_del_trab',
   'Inst Cd': 'inst_cd',
+  'Taborda': 'taborda',
   'Sb total': 'sub_total',
   'Gas Banc': 'gasto_bancario',
   'TOTAL': 'total',
@@ -128,6 +129,7 @@ export function parseExcelToLiquidaciones(file: File): Promise<ParseResult> {
           c_superv: +Number(row['C. superv']).toFixed(2) || 0,
           com_del_trab: +Number(row['Com del trab']).toFixed(2) || 0,
           inst_cd: +Number(row['Inst Cd']).toFixed(2) || 0,
+          taborda: +Number(row['Taborda']).toFixed(2) || 0,
           sub_total: +Number(row['Sb total']).toFixed(2) || 0,
           gasto_bancario: +Number(row['Gas Banc']).toFixed(2) || 0,
           total: +Number(row['TOTAL']).toFixed(2) || 0

@@ -35,6 +35,7 @@ export interface Liquidacion {
   c_superv: number
   com_del_trab: number
   inst_cd: number
+  taborda: number
   sub_total: number
   gasto_bancario: number
   total: number

@@ -36,6 +36,7 @@ export interface DetalleLiquidacion {
   c_superv: string
   com_del_trab: string
   inst_cd: string
+  taborda: string
   sub_total: string
   gasto_bancario: string
   total: string
