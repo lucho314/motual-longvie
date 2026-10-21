@@ -10,7 +10,7 @@ COPY . ./
 RUN pnpm build
 
 
-FROM php:8.2-fpm-bookworm AS composer_builder
+FROM php:8.2.35-fpm-bookworm AS composer_builder
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -29,7 +29,7 @@ RUN composer install \
     --optimize-autoloader
 
 
-FROM php:8.2-fpm-bookworm
+FROM php:8.2.35-fpm-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
