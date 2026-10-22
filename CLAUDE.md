@@ -8,7 +8,7 @@
 
 ## Tech Stack
 
-- **Backend**: Laravel 9.19, PHP 8.0+, MySQL/MariaDB
+- **Backend**: Laravel 13, PHP 8.3+, MySQL/MariaDB
 - **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Flowbite-React
 - **State Management**: React Query (TanStack), React Hook Form + Yup
 - **Auth**: Laravel Sanctum
