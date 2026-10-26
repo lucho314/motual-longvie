@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:20-alpine AS node_builder
+FROM node:24-alpine3.24 AS node_builder
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
@@ -10,7 +10,7 @@ COPY . ./
 RUN pnpm build
 
 
-FROM nginx:1.25-alpine
+FROM nginx:1.30.6-alpine3.24@sha256:47928bf67eb62a1863cb08d9ecb52d3e704304ba614eaee17884204677702951
 
 WORKDIR /var/www/html
 

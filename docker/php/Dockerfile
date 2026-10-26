@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:20-alpine AS node_builder
+FROM node:24-alpine3.24 AS node_builder
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
