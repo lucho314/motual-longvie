@@ -12,6 +12,8 @@ RUN pnpm build
 
 FROM nginx:1.30.6-alpine3.24@sha256:47928bf67eb62a1863cb08d9ecb52d3e704304ba614eaee17884204677702951
 
+RUN apk upgrade --no-cache brotli-libs
+
 WORKDIR /var/www/html
 
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
